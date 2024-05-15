@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>TheGameOfNim</title>
+</head>
+<body>
+    <h1>The Game of Nim</h1>
+
+    <script>
+        var marble = [];
+        player = true
+        used = 0
+        numberMarbles = 21
+        possibleMoves = new Array(21)
+        moves = new Array()
+        for (let i = 0; i < 21; i++) {
+            possibleMoves[i] = [2,2,2];
+        }
+        possibleMoves[0][1] = 0
+        possibleMoves[0][2] = 0
+        possibleMoves[1][2] = 0
+        marbles = document.createElement('div')
+        marbles.className = 'marblesDiv'
+        for(var i = 0; i < numberMarbles; i++){
+            marble[i] = document.createElement('div')
+            marble[i].className = 'marble'
+            marbles.appendChild(marble[i])
+        }
+       
+        document.body.appendChild(marbles);
+
+        buttons = document.createElement('div')
+        buttons.className = 'buttons'
+
+        button1 = document.createElement('button')
+        button1.innerText = 'Take 1'
+        button1.setAttribute('onClick', 'takePlayer(1)')
+        buttons.appendChild(button1)
+
+        button2 = document.createElement('button')
+        button2.innerText = 'Take 2'
+        button2.setAttribute('onClick', 'takePlayer(2)')
+
+        buttons.appendChild(button2)
+
+        button3 = document.createElement('button')
+        button3.innerText = 'Take 3'
+        button3.setAttribute('onClick', 'takePlayer(3)')
+
+        buttons.appendChild(button3)
+
+        document.body.appendChild(buttons)
+
+        popup = document.createElement('div')
+        document.body.appendChild(popup)
+
+        table = document.createElement('table')
+        document.body.appendChild(table)
+
+        function takePlayer(number){
+            popup.innerText = ''
+            popup.className = ''
+            genTable()
+            take(number, true)
+            if(used < numberMarbles){
+                takeComputer()
+                if(used >= numberMarbles){
+                    restart(false)
+                }
+            }
+            else{
+                restart(true)
+            }
+        }
+
+        function takeComputer(){
+            sum = possibleMoves[20-used][0] + possibleMoves[20-used][1] + possibleMoves[20-used][2]
+            random = Math.floor(Math.random() * sum) + 1
+            console.log(random)
+            move = [0,0]
+            if(random <= possibleMoves[20-used][0]){
+                move = [21-used, 1]
+                take(1)
+            }
+            else if(random < sum){
+                move = [21-used, 2]
+                take(2)
+            }
+            else{
+                move = [21-used, 3]
+                take(3)
+            }
+            moves.push(move)
+        }
+
+        function take(number, player){
+            for(let i = 0; i < number; i++) {
+                if (marble.length > used) {
+                    if (player) {
+                        marble[used].className = 'marbleUsedPlayer'
+                    } else {
+                        marble[used].className = 'marbleUsedComputer'
+                    }
+                    if(used < (numberMarbles)){
+                        used++
+                    }
+                }
+            }
+        }
+
+        function restart(player){
+            for(let i = 0; i < moves.length; i++) {
+                if (player) {
+                    possibleMoves[(moves[i][0] - 1)][(moves[i][1] - 1)]--
+                    console.log(moves[i])
+                    popup.innerText = 'Player wins'
+                    popup.className = 'popup_player'
+                } else {
+                    possibleMoves[(moves[i][0] - 1)][(moves[i][1] - 1)]++
+                    console.log(moves[i])
+                    popup.innerText = 'Computer wins'
+                    popup.className = 'popup_computer'
+                }
+            }
+            moves = []
+            for(let i = 0; i < marble.length; i++){
+                marble[i].className = 'marble'
+                used = 0
+            }
+        }
+
+        function genTable(){
+            table.replaceChildren()
+            for(let i = 0; i < possibleMoves.length; i++){
+                tr = document.createElement('tr')
+                th1 = document.createElement('th')
+                th2 = document.createElement('th')
+                th3 = document.createElement('th')
+                tr.appendChild(th1).innerText = possibleMoves[i][0]
+                tr.appendChild(th2).innerText = possibleMoves[i][1]
+                tr.appendChild(th3).innerText = possibleMoves[i][2]
+                table.appendChild(tr)
+            }
+        }
+    
+    </script>
+    
+</body>
+</html>

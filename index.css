@@ -1,0 +1,59 @@
+.marble{
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 100%;
+}
+
+.marblesDiv{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.marbleP1{
+    width: 30px;
+    height: 30px;
+    background-color: blue;
+    border-radius: 100%;
+}
+
+
+.marbleUsedPlayer{
+    width: 30px;
+    height: 30px;
+    background-color: lightgreen;
+    border-radius: 100%;
+}
+
+.marbleUsedComputer{
+    width: 30px;
+    height: 30px;
+    background-color: lightblue;
+    border-radius: 100%;
+}
+
+.buttons{
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.popup_player{
+    background-color: lightgreen;
+    width: fit-content;
+    margin: 1rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+}
+
+.popup_computer{
+    background-color: lightcoral;
+    width: fit-content;
+    margin: 1rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+}
